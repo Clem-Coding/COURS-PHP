@@ -1,38 +1,86 @@
 <?php
 
-$string = "hello comment ca va?";
-
-// function toJadenCase(string $string)
-// {
 
 
-//     $stringArray = explode(" ", $string);
-//     $newArray = [];
 
-//     for ($i = 0; $i < count($stringArray); $i++) {
+//fonction qui retourne un entier 0, 1 ou 2
 
-//         $wordToUpperCase =  ucfirst($stringArray[$i]);
-//         array_push($newArray, $wordToUpperCase);
-//     }
+// Le bowling a une règle particulière : 
+// à la suite d'un lancer de 10 points, les deux prochains lancers gagnent le double de leurs points si applicable.
 
-//     return implode(" ", $newArray);
-// }
+// fonction qui prend 2 tableaux d'entiers (joueur et joueur 2)
 
-function toJadenCase($string)
+//scores des joueurs 
+// Les tableaux d'entiers doivent être de la même longueur afin de calculer le score.
+
+
+// La fonction retourne :
+//   1 si le joueur correspondant au premier tableau l'emporte
+//   2 si le joueur correspondant au second tableau l'emporte
+//   0 s'ils sont ex-aequo ou s'il est impossible de calculer un gagnant
+
+function calculateScore($score)
 {
-    return ucwords($string);
+    $totalScore = 0;
+
+
+    // [1, 10, 3, 2],
+
+    for ($i = 0; $i < count($score); $i++) {
+
+        if ($score[$i] === 10) {
+
+            if (isset($score[$i + 1])) {
+                $totalScore +=  $score[$i + 1];
+            }
+
+            if (isset($score[$i + 2])) {
+
+                $totalScore +=  $score[$i + 2];
+            }
+        }
+        $totalScore += $score[$i];
+    }
+    return $totalScore;
 }
 
 
-echo toJadenCase(($string));
+function findWinner($playerOneScore, $playerTwoScore)
+{
+    // $score1 = array_sum($playerOneScore);
+    // $score2 = array_sum($playerTwoScore);
+
+    $score1 =  calculateScore($playerOneScore);
+    $score2 =  calculateScore($playerTwoScore);
 
 
-// Jaden Smith, the son of Will Smith, is the star of films such as The Karate Kid (2010) and After Earth (2013). 
-//Jaden is also known for some of his philosophy that he delivers via Twitter. When writing on Twitter, he is known for almost always capitalizing every word. 
-//For simplicity, you'll have to capitalize each word, check out how contractions are expected to be in the example below.
-// Your task is to convert strings to how they would be written by Jaden Smith. The strings are actual quotes from Jaden Smith, but they are not capitalized in the same way he originally typed them.
+    if ($score1 === $score2) {
+        return 0;
+    } elseif ($score1 > $score2) {
+        return 1;
+    } else {
+        return 2;
+    }
+}
 
-// Example:
 
-// Not Jaden-Cased: "How can mirrors be real if our eyes aren't real"
-// Jaden-Cased:     "How Can Mirrors Be Real If Our Eyes Aren't Real"
+
+var_dump(findWinner([1, 10, 3, 2], [4, 5, 7, 1]) === 1);
+
+
+var_dump(findWinner(
+    [3, 6, 7, 7, 10],
+    [10, 4, 4, 0, 9]
+) === 2);
+// Données de test
+// Jeu 1
+// p1 = [1,10,3,2]
+// p2 = [4,5,7,1]
+
+// Retour attendu ici : 1
+
+// Jeu 2
+// p1 = [3, 6, 7, 7, 10]
+// p2 = [10, 4, 4, 0, 9]
+
+// Retour attendu ici : 2
