@@ -2,6 +2,7 @@
 
 
 require_once __DIR__ . '/vendor/autoload.php';
+// Chargement des variables d'environnement
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
@@ -27,3 +28,8 @@ try {
 } catch (PDOException $e) {
     echo "Erreur de connexion : " . $e->getMessage();
 }
+
+
+return $db;
+$db = require_once __DIR__ . '/connexion.php';
+
