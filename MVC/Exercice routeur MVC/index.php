@@ -1,3 +1,8 @@
+<!--CONSIGNE DE L'EXO : https://kornog-dev.github.io/BRE03/php/mvc/routeur-mvc/ -->
+
+
+
+
 <?php
 // Point d'entrée de l'application qui run 
 
